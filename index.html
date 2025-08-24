@@ -210,18 +210,33 @@
         /* Main Content Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr;
             gap: 30px;
             margin-bottom: 40px;
         }
 
-        .main-section, .sidebar {
+        /* Feature Boxes Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-box {
             background: rgba(26, 26, 26, 0.8);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 35px;
             border: 1px solid rgba(139, 92, 246, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
         }
 
         .section-title {
@@ -232,6 +247,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 1.2em;
+            opacity: 0.8;
         }
 
         /* Wallet Info */
@@ -406,6 +429,14 @@
             background: rgba(139, 92, 246, 0.1);
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+        }
+
+        .btn-warning:hover:not(:disabled) {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
         /* Status Messages */
         .status {
             margin: 20px 0;
@@ -438,74 +469,62 @@
             color: var(--warning);
         }
 
-        /* Sidebar Features */
-        .feature-card {
+        /* Result Display Boxes */
+        .result-box {
             background: rgba(139, 92, 246, 0.05);
             border: 1px solid rgba(139, 92, 246, 0.2);
             border-radius: 12px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
-        .feature-title {
+        .result-header {
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--accent-purple);
+            font-size: 1.1em;
         }
 
-        .feature-text {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.5;
-        }
-
-        /* Domain Lookup Results */
-        .lookup-result {
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-
-        .lookup-row {
+        .result-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
         }
 
-        .lookup-label {
+        .result-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .result-label {
             color: var(--text-gray);
             font-size: 14px;
         }
 
-        .lookup-value {
+        .result-value {
             color: var(--text-white);
             font-weight: 600;
             font-family: monospace;
+            font-size: 13px;
         }
 
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .footer a {
+        .copy-btn {
+            background: rgba(139, 92, 246, 0.2);
+            border: none;
             color: var(--accent-purple);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 8px;
+            transition: all 0.2s ease;
         }
 
-        .footer a:hover {
-            color: var(--text-white);
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        .copy-btn:hover {
+            background: rgba(139, 92, 246, 0.4);
         }
 
         /* Loading Animation */
@@ -530,14 +549,32 @@
             border-width: 3px;
         }
 
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .main-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                order: -1;
             }
         }
 
@@ -564,7 +601,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .main-section, .sidebar {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-box {
                 padding: 25px;
             }
 
@@ -639,47 +680,49 @@
             </div>
         </section>
 
-        <!-- Main Content Grid -->
-        <div class="main-grid">
-            <!-- Main Registration Section -->
-            <section class="main-section">
-                <h2 class="section-title">Register Your Domain</h2>
+        <!-- Wallet Connection Info -->
+        <div id="walletInfo" class="wallet-info" style="display: none;">
+            <div class="wallet-row">
+                <span class="wallet-label">Connected Wallet:</span>
+                <span class="wallet-value" id="walletAddress"></span>
+            </div>
+            <div class="wallet-row">
+                <span class="wallet-label">Balance:</span>
+                <span class="wallet-value" id="walletBalance">0.0000 ETH</span>
+            </div>
+        </div>
 
-                <!-- Wallet Connection Info -->
-                <div id="walletInfo" class="wallet-info" style="display: none;">
-                    <div class="wallet-row">
-                        <span class="wallet-label">Connected Wallet:</span>
-                        <span class="wallet-value" id="walletAddress"></span>
-                    </div>
-                    <div class="wallet-row">
-                        <span class="wallet-label">Balance:</span>
-                        <span class="wallet-value" id="walletBalance">0.0000 ETH</span>
-                    </div>
+        <!-- Pricing Display -->
+        <div class="pricing-section">
+            <h3 style="margin-bottom: 15px; color: var(--text-white); text-align: center;">💎 Dynamic Pricing</h3>
+            <div class="pricing-grid">
+                <div class="tier">
+                    <div class="tier-badge">Premium</div>
+                    <div class="tier-price">0.01 ETH</div>
+                    <div class="tier-length">1-5 characters</div>
                 </div>
-
-                <!-- Pricing Display -->
-                <div class="pricing-section">
-                    <h3 style="margin-bottom: 15px; color: var(--text-white);">Dynamic Pricing</h3>
-                    <div class="pricing-grid">
-                        <div class="tier">
-                            <div class="tier-badge">Premium</div>
-                            <div class="tier-price">0.01 ETH</div>
-                            <div class="tier-length">1-5 characters</div>
-                        </div>
-                        <div class="tier">
-                            <div class="tier-badge">Standard</div>
-                            <div class="tier-price">0.005 ETH</div>
-                            <div class="tier-length">6-10 characters</div>
-                        </div>
-                        <div class="tier">
-                            <div class="tier-badge">Economy</div>
-                            <div class="tier-price">0.001 ETH</div>
-                            <div class="tier-length">11+ characters</div>
-                        </div>
-                    </div>
+                <div class="tier">
+                    <div class="tier-badge">Standard</div>
+                    <div class="tier-price">0.005 ETH</div>
+                    <div class="tier-length">6-10 characters</div>
                 </div>
+                <div class="tier">
+                    <div class="tier-badge">Economy</div>
+                    <div class="tier-price">0.001 ETH</div>
+                    <div class="tier-length">11+ characters</div>
+                </div>
+            </div>
+        </div>
 
-                <!-- Registration Form -->
+        <!-- Feature Boxes Grid -->
+        <div class="features-grid">
+            <!-- Register Domain Box -->
+            <div class="feature-box">
+                <h2 class="section-title">
+                    <span class="section-icon">🚀</span>
+                    Register Domain
+                </h2>
+
                 <div class="form-group">
                     <label for="domainName" class="form-label">
                         Domain Name <span style="color: var(--text-gray);">(3-50 characters: a-z, 0-9, '-' only)</span>
@@ -694,71 +737,95 @@
                     <input type="text" id="targetAddress" class="form-input" placeholder="0x... (leave empty to use your address)">
                 </div>
 
-                <!-- Price Display -->
                 <div class="price-display" id="priceDisplayContainer" style="display: none;">
                     <div class="price-text">Registration Price:</div>
                     <div class="price-value" id="priceDisplay"></div>
                 </div>
 
-                <!-- Status Messages -->
-                <div id="status"></div>
+                <div id="registerStatus"></div>
 
-                <!-- Action Buttons -->
                 <div class="button-group">
                     <button id="checkAvailabilityBtn" class="btn btn-secondary">🔍 Check Availability</button>
                     <button id="registerBtn" class="btn" disabled>🚀 Register Domain</button>
                 </div>
+            </div>
 
-                <!-- Domain Lookup -->
-                <div style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 15px; color: var(--text-white);">Domain Lookup</h3>
-                    <div class="form-group">
-                        <input type="text" id="lookupDomain" class="form-input" placeholder="Enter domain to lookup owner/target">
-                    </div>
-                    <button id="lookupBtn" class="btn btn-secondary">🔍 Lookup Domain</button>
-                    <div id="lookupResults"></div>
-                </div>
-            </section>
+            <!-- Domain Ownership Checker -->
+            <div class="feature-box">
+                <h2 class="section-title">
+                    <span class="section-icon">👤</span>
+                    Domain Ownership Checker
+                </h2>
 
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <h3 class="section-title">About Fluent DNS</h3>
-
-                <div class="feature-card">
-                    <div class="feature-title">🔒 Decentralized Ownership</div>
-                    <div class="feature-text">
-                        Your domains are stored on the blockchain. No central authority can take them away.
-                    </div>
+                <div class="form-group">
+                    <label for="ownershipDomain" class="form-label">
+                        Enter Domain to Check Ownership
+                    </label>
+                    <input type="text" id="ownershipDomain" class="form-input" placeholder="Enter domain name">
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-title">💎 Dynamic Pricing</div>
-                    <div class="feature-text">
-                        Fair pricing based on domain length. Shorter domains cost more, encouraging efficient use.
-                    </div>
+                <div id="ownershipStatus"></div>
+
+                <div class="button-group">
+                    <button id="checkOwnershipBtn" class="btn btn-secondary">🔍 Check Owner</button>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-title">🔄 Transferable</div>
-                    <div class="feature-text">
-                        Transfer ownership of your domains to other addresses at any time.
-                    </div>
+                <div id="ownershipResults"></div>
+            </div>
+
+            <!-- Transfer Domain Box -->
+            <div class="feature-box">
+                <h2 class="section-title">
+                    <span class="section-icon">↗️</span>
+                    Transfer Domain
+                </h2>
+
+                <div class="form-group">
+                    <label for="transferDomain" class="form-label">
+                        Domain Name to Transfer
+                    </label>
+                    <input type="text" id="transferDomain" class="form-input" placeholder="Enter domain you own">
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-title">⚡ Built on Fluent</div>
-                    <div class="feature-text">
-                        Powered by Fluent Network's fast and low-cost infrastructure.
-                    </div>
+                <div class="form-group">
+                    <label for="newOwnerAddress" class="form-label">
+                        New Owner Address
+                    </label>
+                    <input type="text" id="newOwnerAddress" class="form-input" placeholder="0x... (recipient address)">
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-title">📊 Live Statistics</div>
-                    <div class="feature-text">
-                        Real-time data showing total domains registered and value locked.
-                    </div>
+                <div id="transferStatus"></div>
+
+                <div class="button-group">
+                    <button id="verifyTransferBtn" class="btn btn-secondary">🔍 Verify Ownership</button>
+                    <button id="transferBtn" class="btn btn-warning" disabled>↗️ Transfer Domain</button>
                 </div>
-            </aside>
+
+                <div id="transferResults"></div>
+            </div>
+
+            <!-- Domain Lookup Box -->
+            <div class="feature-box">
+                <h2 class="section-title">
+                    <span class="section-icon">🔍</span>
+                    Domain Lookup
+                </h2>
+
+                <div class="form-group">
+                    <label for="lookupDomain" class="form-label">
+                        Domain to Lookup
+                    </label>
+                    <input type="text" id="lookupDomain" class="form-input" placeholder="Enter domain to get full info">
+                </div>
+
+                <div id="lookupStatus"></div>
+
+                <div class="button-group">
+                    <button id="lookupBtn" class="btn btn-secondary">🔍 Get Domain Info</button>
+                </div>
+
+                <div id="lookupResults"></div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -774,7 +841,7 @@
 
     <!-- Ethers.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
-  <script>
+    <script>
 // Contract Configuration
 const CONTRACT_ADDRESS = "0xF273cd4154D56d50FF32b09A224Cdc2F269b3acA";
 const DEPLOYMENT_BLOCK = 3994017;
@@ -814,33 +881,59 @@ let userAddress = null;
 
 // DOM Elements
 const elements = {
+    // Wallet & Network
     connectWallet: document.getElementById('connectWallet'),
+    walletInfo: document.getElementById('walletInfo'),
+    walletAddress: document.getElementById('walletAddress'),
+    walletBalance: document.getElementById('walletBalance'),
+    
+    // Stats
+    totalDomains: document.getElementById('totalDomains'),
+    totalEthLocked: document.getElementById('totalEthLocked'),
+    recentDomains: document.getElementById('recentDomains'),
+    domainsChange: document.getElementById('domainsChange'),
+    
+    // Register Domain
     domainName: document.getElementById('domainName'),
     targetAddress: document.getElementById('targetAddress'),
     priceDisplay: document.getElementById('priceDisplay'),
     priceDisplayContainer: document.getElementById('priceDisplayContainer'),
     registerBtn: document.getElementById('registerBtn'),
     checkAvailabilityBtn: document.getElementById('checkAvailabilityBtn'),
-    lookupBtn: document.getElementById('lookupBtn'),
+    registerStatus: document.getElementById('registerStatus'),
+    
+    // Ownership Checker
+    ownershipDomain: document.getElementById('ownershipDomain'),
+    checkOwnershipBtn: document.getElementById('checkOwnershipBtn'),
+    ownershipStatus: document.getElementById('ownershipStatus'),
+    ownershipResults: document.getElementById('ownershipResults'),
+    
+    // Transfer Domain
+    transferDomain: document.getElementById('transferDomain'),
+    newOwnerAddress: document.getElementById('newOwnerAddress'),
+    verifyTransferBtn: document.getElementById('verifyTransferBtn'),
+    transferBtn: document.getElementById('transferBtn'),
+    transferStatus: document.getElementById('transferStatus'),
+    transferResults: document.getElementById('transferResults'),
+    
+    // Domain Lookup
     lookupDomain: document.getElementById('lookupDomain'),
-    lookupResults: document.getElementById('lookupResults'),
-    status: document.getElementById('status'),
-    walletInfo: document.getElementById('walletInfo'),
-    walletAddress: document.getElementById('walletAddress'),
-    walletBalance: document.getElementById('walletBalance'),
-    totalDomains: document.getElementById('totalDomains'),
-    totalEthLocked: document.getElementById('totalEthLocked'),
-    recentDomains: document.getElementById('recentDomains'),
-    domainsChange: document.getElementById('domainsChange')
+    lookupBtn: document.getElementById('lookupBtn'),
+    lookupStatus: document.getElementById('lookupStatus'),
+    lookupResults: document.getElementById('lookupResults')
 };
 
 // Utility Functions
-function showStatus(message, type = 'success', duration = 5000) {
-    elements.status.innerHTML = `<div class="status ${type}">${message}</div>`;
-    setTimeout(() => elements.status.innerHTML = '', duration);
+function showStatus(elementId, message, type = 'success', duration = 5000) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = `<div class="status ${type}">${message}</div>`;
+    if (duration > 0) {
+        setTimeout(() => element.innerHTML = '', duration);
+    }
 }
 
 function formatAddress(address) {
+    if (!address || address === ethers.ZeroAddress) return 'Not set';
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
@@ -857,11 +950,21 @@ function isValidDomainName(name) {
     return /^[a-z0-9-]+$/.test(name);
 }
 
+function createCopyButton(text) {
+    return `<button class="copy-btn" onclick="copyToClipboard('${text}')">📋</button>`;
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showStatus('lookupStatus', '📋 Address copied to clipboard!', 'success', 2000);
+    });
+}
+
 // Wallet Connection
 async function connectWallet() {
     try {
         if (typeof window.ethereum === 'undefined') {
-            showStatus('Please install MetaMask or another Web3 wallet', 'error');
+            showStatus('registerStatus', 'Please install MetaMask or another Web3 wallet', 'error');
             return;
         }
 
@@ -891,11 +994,11 @@ async function connectWallet() {
         elements.walletBalance.textContent = `${parseFloat(ethers.formatEther(balance)).toFixed(4)} ETH`;
         elements.walletInfo.style.display = 'block';
 
-        showStatus('✅ Wallet connected successfully!', 'success');
+        showStatus('registerStatus', '✅ Wallet connected successfully!', 'success');
         
     } catch (error) {
         console.error('Error connecting wallet:', error);
-        showStatus('❌ Failed to connect wallet: ' + error.message, 'error');
+        showStatus('registerStatus', '❌ Failed to connect wallet: ' + error.message, 'error');
         elements.connectWallet.innerHTML = 'Connect Wallet';
         elements.connectWallet.disabled = false;
     }
@@ -927,8 +1030,7 @@ async function loadStats() {
         const readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
         
         const currentBlock = await readProvider.getBlockNumber();
-        console.log(`Searching events from block ${DEPLOYMENT_BLOCK} to ${currentBlock}`);
-
+        
         // Search in chunks to avoid RPC limits
         const CHUNK_SIZE = 5000;
         let allEvents = [];
@@ -944,8 +1046,6 @@ async function loadStats() {
                 console.warn(`Error fetching chunk ${fromBlock}-${toBlock}:`, chunkError);
             }
         }
-
-        console.log(`Total events found: ${allEvents.length}`);
 
         // Update total domains
         elements.totalDomains.textContent = allEvents.length.toString();
@@ -982,10 +1082,10 @@ async function loadStats() {
     }
 }
 
-// Domain Name Input Handler
+// Domain Registration Functions
 elements.domainName.addEventListener('input', (e) => {
     const domainName = e.target.value.toLowerCase();
-    e.target.value = domainName; // Force lowercase
+    e.target.value = domainName;
     
     if (domainName && isValidDomainName(domainName)) {
         const price = calculatePrice(domainName);
@@ -999,22 +1099,21 @@ elements.domainName.addEventListener('input', (e) => {
     }
 });
 
-// Check Availability
 elements.checkAvailabilityBtn.addEventListener('click', async () => {
     const domainName = elements.domainName.value.toLowerCase().trim();
     
     if (!domainName) {
-        showStatus('⚠️ Please enter a domain name', 'warning');
+        showStatus('registerStatus', '⚠️ Please enter a domain name', 'warning');
         return;
     }
     
     if (!isValidDomainName(domainName)) {
-        showStatus('❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
+        showStatus('registerStatus', '❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
         return;
     }
 
     if (!contract) {
-        showStatus('⚠️ Please connect your wallet first', 'warning');
+        showStatus('registerStatus', '⚠️ Please connect your wallet first', 'warning');
         return;
     }
 
@@ -1024,36 +1123,35 @@ elements.checkAvailabilityBtn.addEventListener('click', async () => {
         
         const available = await contract.available(domainName);
         if (available) {
-            showStatus(`✅ "${domainName}" is available for registration!`, 'success');
+            showStatus('registerStatus', `✅ "${domainName}" is available for registration!`, 'success');
         } else {
-            showStatus(`❌ "${domainName}" is already taken`, 'error');
+            showStatus('registerStatus', `❌ "${domainName}" is already taken`, 'error');
         }
     } catch (error) {
         console.error('Error checking availability:', error);
-        showStatus('❌ Error checking availability: ' + error.message, 'error');
+        showStatus('registerStatus', '❌ Error checking availability: ' + error.message, 'error');
     } finally {
         elements.checkAvailabilityBtn.innerHTML = '🔍 Check Availability';
         elements.checkAvailabilityBtn.disabled = false;
     }
 });
 
-// Register Domain
 elements.registerBtn.addEventListener('click', async () => {
     const domainName = elements.domainName.value.toLowerCase().trim();
     const targetAddress = elements.targetAddress.value.trim();
     
     if (!domainName) {
-        showStatus('⚠️ Please enter a domain name', 'warning');
+        showStatus('registerStatus', '⚠️ Please enter a domain name', 'warning');
         return;
     }
     
     if (!isValidDomainName(domainName)) {
-        showStatus('❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
+        showStatus('registerStatus', '❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
         return;
     }
 
     if (!contract) {
-        showStatus('⚠️ Please connect your wallet first', 'warning');
+        showStatus('registerStatus', '⚠️ Please connect your wallet first', 'warning');
         return;
     }
 
@@ -1061,45 +1159,39 @@ elements.registerBtn.addEventListener('click', async () => {
         elements.registerBtn.innerHTML = '<span class="loading"></span> Registering...';
         elements.registerBtn.disabled = true;
         
-        // Check availability first
         const available = await contract.available(domainName);
         if (!available) {
-            showStatus('❌ Domain is already taken', 'error');
+            showStatus('registerStatus', '❌ Domain is already taken', 'error');
             return;
         }
 
-        // Get price
         const price = calculatePrice(domainName);
         const priceInWei = ethers.parseEther(price);
         
-        // Validate target address if provided
         const target = targetAddress && ethers.isAddress(targetAddress) 
             ? targetAddress 
             : ethers.ZeroAddress;
 
-        showStatus('📝 Please confirm the transaction in your wallet...', 'warning');
+        showStatus('registerStatus', '📝 Please confirm the transaction in your wallet...', 'warning');
 
-        // Register domain
         const tx = await contract.register(domainName, target, {
             value: priceInWei
         });
         
-        showStatus('⏳ Transaction submitted. Waiting for confirmation...', 'warning');
+        showStatus('registerStatus', '⏳ Transaction submitted. Waiting for confirmation...', 'warning');
         
         const receipt = await tx.wait();
         
-        showStatus(`🎉 Successfully registered "${domainName}"! TX: ${receipt.hash.slice(0, 10)}...`, 'success');
+        showStatus('registerStatus', `🎉 Successfully registered "${domainName}"! TX: ${receipt.hash.slice(0, 10)}...`, 'success');
         
         // Clear inputs
         elements.domainName.value = '';
         elements.targetAddress.value = '';
         elements.priceDisplayContainer.style.display = 'none';
         
-        // Refresh wallet balance
+        // Refresh wallet balance and stats
         const balance = await provider.getBalance(userAddress);
         elements.walletBalance.textContent = `${parseFloat(ethers.formatEther(balance)).toFixed(4)} ETH`;
-        
-        // Refresh stats
         setTimeout(loadStats, 2000);
         
     } catch (error) {
@@ -1109,22 +1201,239 @@ elements.registerBtn.addEventListener('click', async () => {
             errorMessage = '💸 Insufficient funds for registration';
         } else if (error.message.includes('user rejected')) {
             errorMessage = '🚫 Transaction cancelled by user';
-        } else if (error.message.includes('already taken')) {
-            errorMessage = '❌ Domain is already taken';
         }
-        showStatus(errorMessage, 'error');
+        showStatus('registerStatus', errorMessage, 'error');
     } finally {
         elements.registerBtn.innerHTML = '🚀 Register Domain';
         elements.registerBtn.disabled = false;
     }
 });
 
-// Domain Lookup
+// Ownership Checker Functions
+elements.checkOwnershipBtn.addEventListener('click', async () => {
+    const domainName = elements.ownershipDomain.value.toLowerCase().trim();
+    
+    if (!domainName) {
+        showStatus('ownershipStatus', '⚠️ Please enter a domain name to check', 'warning');
+        return;
+    }
+
+    try {
+        elements.checkOwnershipBtn.innerHTML = '<span class="loading"></span> Checking...';
+        elements.checkOwnershipBtn.disabled = true;
+        
+        const readProvider = new ethers.JsonRpcProvider('https://rpc.testnet.fluent.xyz/');
+        const readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
+        
+        const owner = await readContract.ownerOf(domainName);
+        const target = await readContract.resolve(domainName);
+        const available = await readContract.available(domainName);
+        
+        if (available || owner === ethers.ZeroAddress) {
+            elements.ownershipResults.innerHTML = `
+                <div class="result-box">
+                    <div class="result-header">❌ Domain Not Registered</div>
+                    <p style="color: var(--text-gray); margin-top: 10px;">
+                        "${domainName}" is available for registration.
+                    </p>
+                </div>
+            `;
+        } else {
+            elements.ownershipResults.innerHTML = `
+                <div class="result-box">
+                    <div class="result-header">✅ Domain Owner Information</div>
+                    <div class="result-row">
+                        <span class="result-label">Domain:</span>
+                        <span class="result-value">${domainName}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Owner:</span>
+                        <span class="result-value">${formatAddress(owner)}${createCopyButton(owner)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Points To:</span>
+                        <span class="result-value">${formatAddress(target)}${createCopyButton(target)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Status:</span>
+                        <span class="result-value" style="color: var(--success);">Registered</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        showStatus('ownershipStatus', '✅ Ownership check completed', 'success');
+        
+    } catch (error) {
+        console.error('Error checking ownership:', error);
+        showStatus('ownershipStatus', '❌ Error checking ownership: ' + error.message, 'error');
+        elements.ownershipResults.innerHTML = '';
+    } finally {
+        elements.checkOwnershipBtn.innerHTML = '🔍 Check Owner';
+        elements.checkOwnershipBtn.disabled = false;
+    }
+});
+
+// Transfer Domain Functions
+elements.verifyTransferBtn.addEventListener('click', async () => {
+    const domainName = elements.transferDomain.value.toLowerCase().trim();
+    
+    if (!domainName) {
+        showStatus('transferStatus', '⚠️ Please enter a domain name', 'warning');
+        return;
+    }
+
+    if (!contract) {
+        showStatus('transferStatus', '⚠️ Please connect your wallet first', 'warning');
+        return;
+    }
+
+    try {
+        elements.verifyTransferBtn.innerHTML = '<span class="loading"></span> Verifying...';
+        elements.verifyTransferBtn.disabled = true;
+        
+        const owner = await contract.ownerOf(domainName);
+        
+        if (owner === ethers.ZeroAddress) {
+            showStatus('transferStatus', '❌ Domain not registered', 'error');
+            elements.transferResults.innerHTML = '';
+            elements.transferBtn.disabled = true;
+            return;
+        }
+
+        if (owner.toLowerCase() !== userAddress.toLowerCase()) {
+            showStatus('transferStatus', '❌ You do not own this domain', 'error');
+            elements.transferResults.innerHTML = `
+                <div class="result-box">
+                    <div class="result-header">❌ Transfer Not Allowed</div>
+                    <div class="result-row">
+                        <span class="result-label">Domain:</span>
+                        <span class="result-value">${domainName}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Current Owner:</span>
+                        <span class="result-value">${formatAddress(owner)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Your Address:</span>
+                        <span class="result-value">${formatAddress(userAddress)}</span>
+                    </div>
+                </div>
+            `;
+            elements.transferBtn.disabled = true;
+            return;
+        }
+
+        // User owns the domain
+        const target = await contract.resolve(domainName);
+        elements.transferResults.innerHTML = `
+            <div class="result-box">
+                <div class="result-header">✅ Ready to Transfer</div>
+                <div class="result-row">
+                    <span class="result-label">Domain:</span>
+                    <span class="result-value">${domainName}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Current Owner:</span>
+                    <span class="result-value">${formatAddress(owner)} (You)</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Points To:</span>
+                    <span class="result-value">${formatAddress(target)}</span>
+                </div>
+            </div>
+        `;
+        
+        elements.transferBtn.disabled = false;
+        showStatus('transferStatus', '✅ You own this domain. Ready to transfer!', 'success');
+        
+    } catch (error) {
+        console.error('Error verifying transfer:', error);
+        showStatus('transferStatus', '❌ Error verifying ownership: ' + error.message, 'error');
+        elements.transferBtn.disabled = true;
+    } finally {
+        elements.verifyTransferBtn.innerHTML = '🔍 Verify Ownership';
+        elements.verifyTransferBtn.disabled = false;
+    }
+});
+
+elements.transferBtn.addEventListener('click', async () => {
+    const domainName = elements.transferDomain.value.toLowerCase().trim();
+    const newOwnerAddress = elements.newOwnerAddress.value.trim();
+    
+    if (!newOwnerAddress) {
+        showStatus('transferStatus', '⚠️ Please enter the new owner address', 'warning');
+        return;
+    }
+
+    if (!ethers.isAddress(newOwnerAddress)) {
+        showStatus('transferStatus', '❌ Invalid Ethereum address', 'error');
+        return;
+    }
+
+    if (!contract) {
+        showStatus('transferStatus', '⚠️ Please connect your wallet first', 'warning');
+        return;
+    }
+
+    try {
+        elements.transferBtn.innerHTML = '<span class="loading"></span> Transferring...';
+        elements.transferBtn.disabled = true;
+        
+        showStatus('transferStatus', '📝 Please confirm the transfer in your wallet...', 'warning');
+
+        const tx = await contract.transferName(domainName, newOwnerAddress);
+        
+        showStatus('transferStatus', '⏳ Transfer transaction submitted. Waiting for confirmation...', 'warning');
+        
+        const receipt = await tx.wait();
+        
+        showStatus('transferStatus', `🎉 Successfully transferred "${domainName}" to ${formatAddress(newOwnerAddress)}!`, 'success');
+        
+        // Update results
+        elements.transferResults.innerHTML = `
+            <div class="result-box">
+                <div class="result-header">✅ Transfer Completed</div>
+                <div class="result-row">
+                    <span class="result-label">Domain:</span>
+                    <span class="result-value">${domainName}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">New Owner:</span>
+                    <span class="result-value">${formatAddress(newOwnerAddress)}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Transaction:</span>
+                    <span class="result-value">${receipt.hash.slice(0, 20)}...</span>
+                </div>
+            </div>
+        `;
+        
+        // Clear inputs
+        elements.transferDomain.value = '';
+        elements.newOwnerAddress.value = '';
+        
+    } catch (error) {
+        console.error('Error transferring domain:', error);
+        let errorMessage = '❌ Transfer failed';
+        if (error.message.includes('user rejected')) {
+            errorMessage = '🚫 Transfer cancelled by user';
+        } else if (error.message.includes('Not name owner')) {
+            errorMessage = '❌ You are not the owner of this domain';
+        }
+        showStatus('transferStatus', errorMessage, 'error');
+    } finally {
+        elements.transferBtn.innerHTML = '↗️ Transfer Domain';
+        elements.transferBtn.disabled = true;
+    }
+});
+
+// Domain Lookup Functions
 elements.lookupBtn.addEventListener('click', async () => {
     const domainName = elements.lookupDomain.value.toLowerCase().trim();
     
     if (!domainName) {
-        showStatus('⚠️ Please enter a domain name to lookup', 'warning');
+        showStatus('lookupStatus', '⚠️ Please enter a domain name to lookup', 'warning');
         return;
     }
 
@@ -1138,40 +1447,62 @@ elements.lookupBtn.addEventListener('click', async () => {
         const owner = await readContract.ownerOf(domainName);
         const target = await readContract.resolve(domainName);
         const available = await readContract.available(domainName);
+        const price = await readContract.getPrice(domainName);
         
         if (available || owner === ethers.ZeroAddress) {
             elements.lookupResults.innerHTML = `
-                <div class="lookup-result">
-                    <h4 style="color: var(--warning); margin-bottom: 15px;">Domain Not Registered</h4>
-                    <p style="color: var(--text-gray);">This domain is available for registration.</p>
+                <div class="result-box">
+                    <div class="result-header">🟡 Domain Available</div>
+                    <div class="result-row">
+                        <span class="result-label">Domain:</span>
+                        <span class="result-value">${domainName}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Status:</span>
+                        <span class="result-value" style="color: var(--warning);">Available for registration</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Registration Price:</span>
+                        <span class="result-value" style="color: var(--success);">${ethers.formatEther(price)} ETH</span>
+                    </div>
                 </div>
             `;
         } else {
             elements.lookupResults.innerHTML = `
-                <div class="lookup-result">
-                    <h4 style="color: var(--success); margin-bottom: 15px;">Domain Information</h4>
-                    <div class="lookup-row">
-                        <span class="lookup-label">Owner:</span>
-                        <span class="lookup-value">${formatAddress(owner)}</span>
+                <div class="result-box">
+                    <div class="result-header">✅ Domain Information</div>
+                    <div class="result-row">
+                        <span class="result-label">Domain:</span>
+                        <span class="result-value">${domainName}</span>
                     </div>
-                    <div class="lookup-row">
-                        <span class="lookup-label">Target:</span>
-                        <span class="lookup-value">${formatAddress(target)}</span>
+                    <div class="result-row">
+                        <span class="result-label">Status:</span>
+                        <span class="result-value" style="color: var(--success);">Registered</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Owner:</span>
+                        <span class="result-value">${formatAddress(owner)}${createCopyButton(owner)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Target Address:</span>
+                        <span class="result-value">${formatAddress(target)}${createCopyButton(target)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Registration Price:</span>
+                        <span class="result-value">${ethers.formatEther(price)} ETH</span>
                     </div>
                 </div>
             `;
         }
         
+        showStatus('lookupStatus', '✅ Domain lookup completed', 'success');
+        
     } catch (error) {
         console.error('Error looking up domain:', error);
-        elements.lookupResults.innerHTML = `
-            <div class="lookup-result">
-                <h4 style="color: var(--error); margin-bottom: 15px;">Lookup Failed</h4>
-                <p style="color: var(--text-gray);">Unable to lookup domain information.</p>
-            </div>
-        `;
+        showStatus('lookupStatus', '❌ Error looking up domain: ' + error.message, 'error');
+        elements.lookupResults.innerHTML = '';
     } finally {
-        elements.lookupBtn.innerHTML = '🔍 Lookup Domain';
+        elements.lookupBtn.innerHTML = '🔍 Get Domain Info';
         elements.lookupBtn.disabled = false;
     }
 });
@@ -1202,6 +1533,7 @@ if (typeof window.ethereum !== 'undefined') {
             elements.connectWallet.disabled = false;
             elements.connectWallet.style.background = '';
             elements.registerBtn.disabled = true;
+            elements.transferBtn.disabled = true;
             elements.walletInfo.style.display = 'none';
         } else {
             connectWallet();
