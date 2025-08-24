@@ -74,9 +74,7 @@
             align-items: center;
         }
 
-        .connect-btn {
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            color: var(--text-white);
+        .connect-btn, .disconnect-btn {
             border: none;
             padding: 12px 24px;
             border-radius: 12px;
@@ -84,12 +82,28 @@
             font-weight: 600;
             font-size: 14px;
             transition: all 0.3s ease;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: var(--text-white);
             box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .disconnect-btn {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            color: var(--text-white);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
         }
 
         .connect-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .disconnect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
         }
 
         .connect-btn:disabled {
@@ -207,56 +221,6 @@
             font-weight: 500;
         }
 
-        /* Main Content Grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        /* Feature Boxes Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .feature-box {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 35px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-purple);
-            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
-        }
-
-        .section-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--text-white), var(--light-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-icon {
-            font-size: 1.2em;
-            opacity: 0.8;
-        }
-
         /* Wallet Info */
         .wallet-info {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1));
@@ -331,202 +295,6 @@
             font-size: 13px;
         }
 
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-white);
-            font-size: 14px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 16px 20px;
-            background: var(--medium-gray);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 12px;
-            color: var(--text-white);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-purple);
-            background: rgba(139, 92, 246, 0.1);
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-gray);
-        }
-
-        .price-display {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid var(--success);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-text {
-            font-weight: 600;
-            color: var(--text-white);
-        }
-
-        .price-value {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--success);
-        }
-
-        /* Action Buttons */
-        .button-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            color: var(--text-white);
-            border: none;
-            padding: 14px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-        }
-
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-        }
-
-        .btn:disabled {
-            background: var(--medium-gray);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary-purple);
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-        }
-
-        .btn-warning:hover:not(:disabled) {
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-        }
-
-        /* Status Messages */
-        .status {
-            margin: 20px 0;
-            padding: 16px 20px;
-            border-radius: 12px;
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .status.success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-        }
-
-        .status.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
-        }
-
-        .status.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid var(--warning);
-            color: var(--warning);
-        }
-
-        /* Result Display Boxes */
-        .result-box {
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .result-header {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--accent-purple);
-            font-size: 1.1em;
-        }
-
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-        }
-
-        .result-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .result-label {
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .result-value {
-            color: var(--text-white);
-            font-weight: 600;
-            font-family: monospace;
-            font-size: 13px;
-        }
-
-        .copy-btn {
-            background: rgba(139, 92, 246, 0.2);
-            border: none;
-            color: var(--accent-purple);
-            padding: 4px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .copy-btn:hover {
-            background: rgba(139, 92, 246, 0.4);
-        }
-
         /* Loading Animation */
         .loading {
             display: inline-block;
@@ -548,87 +316,6 @@
             height: 30px;
             border-width: 3px;
         }
-
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .footer a {
-            color: var(--accent-purple);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: var(--text-white);
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .logo {
-                font-size: 2em;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .feature-box {
-                padding: 25px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -637,8 +324,9 @@
         <header class="header">
             <div class="logo">🎨 Fluent DNS</div>
             <div class="header-actions">
-                <button id="networkStatus" class="btn btn-secondary" style="font-size: 12px;">Fluent Testnet</button>
+                <button id="networkStatus" class="connect-btn" style="font-size: 12px; padding: 8px 16px;">Fluent Testnet</button>
                 <button id="connectWallet" class="connect-btn">Connect Wallet</button>
+                <button id="disconnectWallet" class="disconnect-btn" style="display: none;">Disconnect</button>
             </div>
         </header>
 
@@ -714,139 +402,597 @@
             </div>
         </div>
 
-        <!-- Feature Boxes Grid -->
-        <div class="features-grid">
-            <!-- Register Domain Box -->
-            <div class="feature-box">
-                <h2 class="section-title">
-                    <span class="section-icon">🚀</span>
-                    Register Domain
-                </h2>
+        <style>
+/* Advanced CSS for Feature Boxes and Forms */
 
-                <div class="form-group">
-                    <label for="domainName" class="form-label">
-                        Domain Name <span style="color: var(--text-gray);">(3-50 characters: a-z, 0-9, '-' only)</span>
-                    </label>
-                    <input type="text" id="domainName" class="form-input" placeholder="Enter your desired domain name">
-                </div>
+/* Feature Boxes Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
 
-                <div class="form-group">
-                    <label for="targetAddress" class="form-label">
-                        Target Address <span style="color: var(--text-gray);">(optional - defaults to your wallet)</span>
-                    </label>
-                    <input type="text" id="targetAddress" class="form-input" placeholder="0x... (leave empty to use your address)">
-                </div>
+.feature-box {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 35px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
 
-                <div class="price-display" id="priceDisplayContainer" style="display: none;">
-                    <div class="price-text">Registration Price:</div>
-                    <div class="price-value" id="priceDisplay"></div>
-                </div>
+.feature-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-purple);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+}
 
-                <div id="registerStatus"></div>
+.section-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, var(--text-white), var(--light-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-                <div class="button-group">
-                    <button id="checkAvailabilityBtn" class="btn btn-secondary">🔍 Check Availability</button>
-                    <button id="registerBtn" class="btn" disabled>🚀 Register Domain</button>
+.section-icon {
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-white);
+    font-size: 14px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--medium-gray);
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    color: var(--text-white);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.form-input::placeholder {
+    color: var(--text-gray);
+}
+
+.price-display {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    border-left: 4px solid var(--success);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-text {
+    font-weight: 600;
+    color: var(--text-white);
+}
+
+.price-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--success);
+}
+
+/* Action Buttons */
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: var(--text-white);
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.btn:disabled {
+    background: var(--medium-gray);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-purple);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning), #d97706);
+}
+
+.btn-warning:hover:not(:disabled) {
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success), #059669);
+}
+
+.btn-success:hover:not(:disabled) {
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Status Messages */
+.status {
+    margin: 20px 0;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.status.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+}
+
+.status.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--error);
+    color: var(--error);
+}
+
+.status.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+}
+
+/* Result Display Boxes */
+.result-box {
+    background: rgba(139, 92, 246, 0.05);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.result-header {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--accent-purple);
+    font-size: 1.1em;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.result-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.result-label {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.result-value {
+    color: var(--text-white);
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.copy-btn {
+    background: rgba(139, 92, 246, 0.2);
+    border: none;
+    color: var(--accent-purple);
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: rgba(139, 92, 246, 0.4);
+}
+
+/* Transfer Options */
+.transfer-options {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.transfer-option {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.transfer-option:hover {
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.transfer-option:last-child {
+    margin-bottom: 0;
+}
+
+.transfer-option input[type="radio"] {
+    margin-right: 12px;
+    margin-top: 2px;
+    transform: scale(1.2);
+    accent-color: var(--warning);
+}
+
+.transfer-option-content {
+    flex: 1;
+}
+
+.transfer-option-label {
+    font-weight: 600;
+    color: var(--warning);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.transfer-option-desc {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.4;
+}
+
+/* Set Address Section */
+.set-address-section {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.set-address-header {
+    color: var(--success);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.footer a {
+    color: var(--accent-purple);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--text-white);
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 2em;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-box {
+        padding: 25px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+</style>
+
+<!-- Feature Boxes Grid -->
+<div class="features-grid">
+    <!-- Register Domain Box -->
+    <div class="feature-box">
+        <h2 class="section-title">
+            <span class="section-icon">🚀</span>
+            Register Domain
+        </h2>
+
+        <div class="form-group">
+            <label for="domainName" class="form-label">
+                Domain Name <span style="color: var(--text-gray);">(3-50 characters: a-z, 0-9, '-' only)</span>
+            </label>
+            <input type="text" id="domainName" class="form-input" placeholder="Enter your desired domain name">
+        </div>
+
+        <div class="form-group">
+            <label for="targetAddress" class="form-label">
+                Target Address <span style="color: var(--text-gray);">(optional - defaults to your wallet)</span>
+            </label>
+            <input type="text" id="targetAddress" class="form-input" placeholder="0x... (leave empty to use your address)">
+        </div>
+
+        <div class="price-display" id="priceDisplayContainer" style="display: none;">
+            <div class="price-text">Registration Price:</div>
+            <div class="price-value" id="priceDisplay"></div>
+        </div>
+
+        <div id="registerStatus"></div>
+
+        <div class="button-group">
+            <button id="checkAvailabilityBtn" class="btn btn-secondary">🔍 Check Availability</button>
+            <button id="registerBtn" class="btn" disabled>🚀 Register Domain</button>
+        </div>
+    </div>
+
+    <!-- Domain Ownership Checker -->
+    <div class="feature-box">
+        <h2 class="section-title">
+            <span class="section-icon">👤</span>
+            Domain Ownership Checker
+        </h2>
+
+        <div class="form-group">
+            <label for="ownershipDomain" class="form-label">
+                Enter Domain to Check Ownership
+            </label>
+            <input type="text" id="ownershipDomain" class="form-input" placeholder="Enter domain name">
+        </div>
+
+        <div id="ownershipStatus"></div>
+
+        <div class="button-group">
+            <button id="checkOwnershipBtn" class="btn btn-secondary">🔍 Check Owner</button>
+        </div>
+
+        <div id="ownershipResults"></div>
+    </div>
+
+    <!-- Transfer Domain Box -->
+    <div class="feature-box">
+        <h2 class="section-title">
+            <span class="section-icon">↗️</span>
+            Transfer Domain
+        </h2>
+
+        <div class="form-group">
+            <label for="transferDomain" class="form-label">
+                Domain Name to Transfer
+            </label>
+            <input type="text" id="transferDomain" class="form-input" placeholder="Enter domain you own">
+        </div>
+
+        <div class="form-group">
+            <label for="newOwnerAddress" class="form-label">
+                New Owner Address
+            </label>
+            <input type="text" id="newOwnerAddress" class="form-input" placeholder="0x... (recipient address)">
+        </div>
+
+        <!-- Transfer Options -->
+        <div class="transfer-options">
+            <h4 style="color: var(--warning); margin-bottom: 15px;">🔄 Transfer Options:</h4>
+            <div class="transfer-option">
+                <input type="radio" name="transferType" value="ownership" id="transferOwnership" checked>
+                <div class="transfer-option-content">
+                    <label for="transferOwnership" class="transfer-option-label">Transfer Ownership Only</label>
+                    <div class="transfer-option-desc">Transfer ownership but keep current target address unchanged</div>
                 </div>
             </div>
-
-            <!-- Domain Ownership Checker -->
-            <div class="feature-box">
-                <h2 class="section-title">
-                    <span class="section-icon">👤</span>
-                    Domain Ownership Checker
-                </h2>
-
-                <div class="form-group">
-                    <label for="ownershipDomain" class="form-label">
-                        Enter Domain to Check Ownership
-                    </label>
-                    <input type="text" id="ownershipDomain" class="form-input" placeholder="Enter domain name">
+            <div class="transfer-option">
+                <input type="radio" name="transferType" value="full" id="transferFull">
+                <div class="transfer-option-content">
+                    <label for="transferFull" class="transfer-option-label">Full Transfer (Recommended)</label>
+                    <div class="transfer-option-desc">Transfer ownership AND update target address to new owner</div>
                 </div>
-
-                <div id="ownershipStatus"></div>
-
-                <div class="button-group">
-                    <button id="checkOwnershipBtn" class="btn btn-secondary">🔍 Check Owner</button>
-                </div>
-
-                <div id="ownershipResults"></div>
-            </div>
-
-            <!-- Transfer Domain Box -->
-            <div class="feature-box">
-                <h2 class="section-title">
-                    <span class="section-icon">↗️</span>
-                    Transfer Domain
-                </h2>
-
-                <div class="form-group">
-                    <label for="transferDomain" class="form-label">
-                        Domain Name to Transfer
-                    </label>
-                    <input type="text" id="transferDomain" class="form-input" placeholder="Enter domain you own">
-                </div>
-
-                <div class="form-group">
-                    <label for="newOwnerAddress" class="form-label">
-                        New Owner Address
-                    </label>
-                    <input type="text" id="newOwnerAddress" class="form-input" placeholder="0x... (recipient address)">
-                </div>
-
-                <div id="transferStatus"></div>
-
-                <div class="button-group">
-                    <button id="verifyTransferBtn" class="btn btn-secondary">🔍 Verify Ownership</button>
-                    <button id="transferBtn" class="btn btn-warning" disabled>↗️ Transfer Domain</button>
-                </div>
-
-                <div id="transferResults"></div>
-            </div>
-
-            <!-- Domain Lookup Box -->
-            <div class="feature-box">
-                <h2 class="section-title">
-                    <span class="section-icon">🔍</span>
-                    Domain Lookup
-                </h2>
-
-                <div class="form-group">
-                    <label for="lookupDomain" class="form-label">
-                        Domain to Lookup
-                    </label>
-                    <input type="text" id="lookupDomain" class="form-input" placeholder="Enter domain to get full info">
-                </div>
-
-                <div id="lookupStatus"></div>
-
-                <div class="button-group">
-                    <button id="lookupBtn" class="btn btn-secondary">🔍 Get Domain Info</button>
-                </div>
-
-                <div id="lookupResults"></div>
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div>
-                <a href="https://x.com/fluentxyz" target="_blank">Fluent X</a>
-            </div>
-            <div>
-                made by top gooner <a href="https://x.com/kvng6ixx" target="_blank">0xbito</a>
-            </div>
-        </footer>
+        <div id="transferStatus"></div>
+
+        <div class="button-group">
+            <button id="verifyTransferBtn" class="btn btn-secondary">🔍 Verify Ownership</button>
+            <button id="transferBtn" class="btn btn-warning" disabled>↗️ Transfer Domain</button>
+        </div>
+
+        <div id="transferResults"></div>
     </div>
 
-    <!-- Ethers.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
-    <script>
+    <!-- Set Address Box -->
+    <div class="feature-box">
+        <h2 class="section-title">
+            <span class="section-icon">🎯</span>
+            Set Domain Address
+        </h2>
+
+        <div class="form-group">
+            <label for="setAddressDomain" class="form-label">
+                Domain Name (that you own)
+            </label>
+            <input type="text" id="setAddressDomain" class="form-input" placeholder="Enter domain you own">
+        </div>
+
+        <div class="form-group">
+            <label for="newTargetAddress" class="form-label">
+                New Target Address
+            </label>
+            <input type="text" id="newTargetAddress" class="form-input" placeholder="0x... (where domain should point)">
+        </div>
+
+        <div class="set-address-section">
+            <div class="set-address-header">ℹ️ What does this do?</div>
+            <p style="color: var(--text-gray); font-size: 14px; line-height: 1.5;">
+                This changes where your domain points to without transferring ownership. 
+                You'll still own the domain, but it will resolve to a different address.
+            </p>
+        </div>
+
+        <div id="setAddressStatus"></div>
+
+        <div class="button-group">
+            <button id="verifySetAddressBtn" class="btn btn-secondary">🔍 Verify Ownership</button>
+            <button id="setAddressBtn" class="btn btn-success" disabled>🎯 Update Address</button>
+        </div>
+
+        <div id="setAddressResults"></div>
+    </div>
+
+    <!-- Domain Lookup Box -->
+    <div class="feature-box">
+        <h2 class="section-title">
+            <span class="section-icon">🔍</span>
+            Domain Lookup
+        </h2>
+
+        <div class="form-group">
+            <label for="lookupDomain" class="form-label">
+                Domain to Lookup
+            </label>
+            <input type="text" id="lookupDomain" class="form-input" placeholder="Enter domain to get full info">
+        </div>
+
+        <div id="lookupStatus"></div>
+
+        <div class="button-group">
+            <button id="lookupBtn" class="btn btn-secondary">🔍 Get Domain Info</button>
+        </div>
+
+        <div id="lookupResults"></div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div>
+        <a href="https://x.com/fluentxyz" target="_blank">Fluent X</a>
+    </div>
+    <div>
+        made by top gooner <a href="https://x.com/kvng6ixx" target="_blank">0xbito</a>
+    </div>
+</footer>
+
+<script>
 // Contract Configuration
 const CONTRACT_ADDRESS = "0xF273cd4154D56d50FF32b09A224Cdc2F269b3acA";
 const DEPLOYMENT_BLOCK = 3994017;
 
-// Enhanced ABI from your smart contract
+// Enhanced ABI with setAddress function
 const CONTRACT_ABI = [
     "function register(string calldata name, address target) external payable",
     "function available(string calldata name) external view returns (bool)",
@@ -883,6 +1029,7 @@ let userAddress = null;
 const elements = {
     // Wallet & Network
     connectWallet: document.getElementById('connectWallet'),
+    disconnectWallet: document.getElementById('disconnectWallet'),
     walletInfo: document.getElementById('walletInfo'),
     walletAddress: document.getElementById('walletAddress'),
     walletBalance: document.getElementById('walletBalance'),
@@ -915,6 +1062,16 @@ const elements = {
     transferBtn: document.getElementById('transferBtn'),
     transferStatus: document.getElementById('transferStatus'),
     transferResults: document.getElementById('transferResults'),
+    transferOwnership: document.getElementById('transferOwnership'),
+    transferFull: document.getElementById('transferFull'),
+    
+    // Set Address
+    setAddressDomain: document.getElementById('setAddressDomain'),
+    newTargetAddress: document.getElementById('newTargetAddress'),
+    verifySetAddressBtn: document.getElementById('verifySetAddressBtn'),
+    setAddressBtn: document.getElementById('setAddressBtn'),
+    setAddressStatus: document.getElementById('setAddressStatus'),
+    setAddressResults: document.getElementById('setAddressResults'),
     
     // Domain Lookup
     lookupDomain: document.getElementById('lookupDomain'),
@@ -960,7 +1117,7 @@ function copyToClipboard(text) {
     });
 }
 
-// Wallet Connection
+// Wallet Connection & Management
 async function connectWallet() {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -984,8 +1141,8 @@ async function connectWallet() {
         contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
         // Update UI
-        elements.connectWallet.textContent = 'Connected';
-        elements.connectWallet.style.background = 'var(--success)';
+        elements.connectWallet.style.display = 'none';
+        elements.disconnectWallet.style.display = 'block';
         elements.registerBtn.disabled = false;
 
         // Show wallet info
@@ -1004,7 +1161,25 @@ async function connectWallet() {
     }
 }
 
-// Switch to Fluent Testnet
+function disconnectWallet() {
+    provider = null;
+    signer = null;
+    contract = null;
+    userAddress = null;
+    
+    // Update UI
+    elements.connectWallet.style.display = 'block';
+    elements.disconnectWallet.style.display = 'none';
+    elements.connectWallet.innerHTML = 'Connect Wallet';
+    elements.connectWallet.disabled = false;
+    elements.registerBtn.disabled = true;
+    elements.transferBtn.disabled = true;
+    elements.setAddressBtn.disabled = true;
+    elements.walletInfo.style.display = 'none';
+    
+    showStatus('registerStatus', '👋 Wallet disconnected', 'warning', 3000);
+}
+
 async function switchToFluentTestnet() {
     try {
         await window.ethereum.request({
@@ -1031,7 +1206,6 @@ async function loadStats() {
         
         const currentBlock = await readProvider.getBlockNumber();
         
-        // Search in chunks to avoid RPC limits
         const CHUNK_SIZE = 5000;
         let allEvents = [];
         
@@ -1047,11 +1221,9 @@ async function loadStats() {
             }
         }
 
-        // Update total domains
         elements.totalDomains.textContent = allEvents.length.toString();
         elements.domainsChange.textContent = `Since deployment`;
 
-        // Calculate total ETH locked
         let totalEthLocked = 0n;
         allEvents.forEach(event => {
             if (event.args && event.args.price) {
@@ -1060,7 +1232,6 @@ async function loadStats() {
         });
         elements.totalEthLocked.textContent = parseFloat(ethers.formatEther(totalEthLocked)).toFixed(4);
 
-        // Show recent domains
         const recentEvents = allEvents.slice(-10).reverse();
         
         if (recentEvents.length === 0) {
@@ -1136,6 +1307,41 @@ elements.checkAvailabilityBtn.addEventListener('click', async () => {
     }
 });
 
+// Event Listeners Setup
+elements.connectWallet.addEventListener('click', connectWallet);
+elements.disconnectWallet.addEventListener('click', disconnectWallet);
+
+// Auto-connect and initialization
+window.addEventListener('load', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+            await connectWallet();
+        }
+    }
+    await loadStats();
+});
+
+// Handle account/network changes
+if (typeof window.ethereum !== 'undefined') {
+    window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+            disconnectWallet();
+        } else {
+            connectWallet();
+        }
+    });
+
+    window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+    });
+}
+
+// Auto-refresh stats every 30 seconds
+setInterval(loadStats, 30000);
+
+</script>
+        // Register Domain Function
 elements.registerBtn.addEventListener('click', async () => {
     const domainName = elements.domainName.value.toLowerCase().trim();
     const targetAddress = elements.targetAddress.value.trim();
@@ -1324,7 +1530,6 @@ elements.verifyTransferBtn.addEventListener('click', async () => {
             return;
         }
 
-        // User owns the domain
         const target = await contract.resolve(domainName);
         elements.transferResults.innerHTML = `
             <div class="result-box">
@@ -1338,7 +1543,7 @@ elements.verifyTransferBtn.addEventListener('click', async () => {
                     <span class="result-value">${formatAddress(owner)} (You)</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Points To:</span>
+                    <span class="result-label">Current Target:</span>
                     <span class="result-value">${formatAddress(target)}</span>
                 </div>
             </div>
@@ -1360,6 +1565,7 @@ elements.verifyTransferBtn.addEventListener('click', async () => {
 elements.transferBtn.addEventListener('click', async () => {
     const domainName = elements.transferDomain.value.toLowerCase().trim();
     const newOwnerAddress = elements.newOwnerAddress.value.trim();
+    const isFullTransfer = elements.transferFull.checked;
     
     if (!newOwnerAddress) {
         showStatus('transferStatus', '⚠️ Please enter the new owner address', 'warning');
@@ -1371,24 +1577,32 @@ elements.transferBtn.addEventListener('click', async () => {
         return;
     }
 
-    if (!contract) {
-        showStatus('transferStatus', '⚠️ Please connect your wallet first', 'warning');
-        return;
-    }
-
     try {
-        elements.transferBtn.innerHTML = '<span class="loading"></span> Transferring...';
+        elements.transferBtn.innerHTML = '<span class="loading"></span> Processing...';
         elements.transferBtn.disabled = true;
         
-        showStatus('transferStatus', '📝 Please confirm the transfer in your wallet...', 'warning');
+        if (isFullTransfer) {
+            // Full Transfer: Transfer ownership AND set address
+            showStatus('transferStatus', '📝 Step 1/2: Transferring ownership...', 'warning');
+            
+            const transferTx = await contract.transferName(domainName, newOwnerAddress);
+            await transferTx.wait();
+            
+            showStatus('transferStatus', '📝 Step 2/2: Setting target address...', 'warning');
+            
+            const setAddressTx = await contract.setAddress(domainName, newOwnerAddress);
+            await setAddressTx.wait();
+            
+            showStatus('transferStatus', `🎉 Full transfer completed! "${domainName}" now owned by and points to ${formatAddress(newOwnerAddress)}`, 'success');
+        } else {
+            // Ownership Only Transfer
+            showStatus('transferStatus', '📝 Please confirm the transfer in your wallet...', 'warning');
 
-        const tx = await contract.transferName(domainName, newOwnerAddress);
-        
-        showStatus('transferStatus', '⏳ Transfer transaction submitted. Waiting for confirmation...', 'warning');
-        
-        const receipt = await tx.wait();
-        
-        showStatus('transferStatus', `🎉 Successfully transferred "${domainName}" to ${formatAddress(newOwnerAddress)}!`, 'success');
+            const tx = await contract.transferName(domainName, newOwnerAddress);
+            await tx.wait();
+            
+            showStatus('transferStatus', `✅ Ownership transferred! "${domainName}" now owned by ${formatAddress(newOwnerAddress)} (target address unchanged)`, 'success');
+        }
         
         // Update results
         elements.transferResults.innerHTML = `
@@ -1403,8 +1617,8 @@ elements.transferBtn.addEventListener('click', async () => {
                     <span class="result-value">${formatAddress(newOwnerAddress)}</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Transaction:</span>
-                    <span class="result-value">${receipt.hash.slice(0, 20)}...</span>
+                    <span class="result-label">Transfer Type:</span>
+                    <span class="result-value">${isFullTransfer ? 'Full Transfer' : 'Ownership Only'}</span>
                 </div>
             </div>
         `;
@@ -1425,6 +1639,150 @@ elements.transferBtn.addEventListener('click', async () => {
     } finally {
         elements.transferBtn.innerHTML = '↗️ Transfer Domain';
         elements.transferBtn.disabled = true;
+    }
+});
+
+// Set Address Functions
+elements.verifySetAddressBtn.addEventListener('click', async () => {
+    const domainName = elements.setAddressDomain.value.toLowerCase().trim();
+    
+    if (!domainName) {
+        showStatus('setAddressStatus', '⚠️ Please enter a domain name', 'warning');
+        return;
+    }
+
+    if (!contract) {
+        showStatus('setAddressStatus', '⚠️ Please connect your wallet first', 'warning');
+        return;
+    }
+
+    try {
+        elements.verifySetAddressBtn.innerHTML = '<span class="loading"></span> Verifying...';
+        elements.verifySetAddressBtn.disabled = true;
+        
+        const owner = await contract.ownerOf(domainName);
+        const target = await contract.resolve(domainName);
+        
+        if (owner === ethers.ZeroAddress) {
+            showStatus('setAddressStatus', '❌ Domain not registered', 'error');
+            elements.setAddressResults.innerHTML = '';
+            elements.setAddressBtn.disabled = true;
+            return;
+        }
+
+        if (owner.toLowerCase() !== userAddress.toLowerCase()) {
+            showStatus('setAddressStatus', '❌ You do not own this domain', 'error');
+            elements.setAddressResults.innerHTML = `
+                <div class="result-box">
+                    <div class="result-header">❌ Set Address Not Allowed</div>
+                    <div class="result-row">
+                        <span class="result-label">Domain:</span>
+                        <span class="result-value">${domainName}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Owner:</span>
+                        <span class="result-value">${formatAddress(owner)}</span>
+                    </div>
+                </div>
+            `;
+            elements.setAddressBtn.disabled = true;
+            return;
+        }
+
+        elements.setAddressResults.innerHTML = `
+            <div class="result-box">
+                <div class="result-header">✅ Ready to Update Address</div>
+                <div class="result-row">
+                    <span class="result-label">Domain:</span>
+                    <span class="result-value">${domainName}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Owner:</span>
+                    <span class="result-value">${formatAddress(owner)} (You)</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Current Target:</span>
+                    <span class="result-value">${formatAddress(target)}</span>
+                </div>
+            </div>
+        `;
+        
+        elements.setAddressBtn.disabled = false;
+        showStatus('setAddressStatus', '✅ You own this domain. Ready to update address!', 'success');
+        
+    } catch (error) {
+        console.error('Error verifying set address:', error);
+        showStatus('setAddressStatus', '❌ Error verifying ownership: ' + error.message, 'error');
+        elements.setAddressBtn.disabled = true;
+    } finally {
+        elements.verifySetAddressBtn.innerHTML = '🔍 Verify Ownership';
+        elements.verifySetAddressBtn.disabled = false;
+    }
+});
+
+elements.setAddressBtn.addEventListener('click', async () => {
+    const domainName = elements.setAddressDomain.value.toLowerCase().trim();
+    const newTargetAddress = elements.newTargetAddress.value.trim();
+    
+    if (!newTargetAddress) {
+        showStatus('setAddressStatus', '⚠️ Please enter the new target address', 'warning');
+        return;
+    }
+
+    if (!ethers.isAddress(newTargetAddress)) {
+        showStatus('setAddressStatus', '❌ Invalid Ethereum address', 'error');
+        return;
+    }
+
+    try {
+        elements.setAddressBtn.innerHTML = '<span class="loading"></span> Updating...';
+        elements.setAddressBtn.disabled = true;
+        
+        showStatus('setAddressStatus', '📝 Please confirm the transaction in your wallet...', 'warning');
+
+        const tx = await contract.setAddress(domainName, newTargetAddress);
+        
+        showStatus('setAddressStatus', '⏳ Transaction submitted. Waiting for confirmation...', 'warning');
+        
+        const receipt = await tx.wait();
+        
+        showStatus('setAddressStatus', `🎯 Successfully updated "${domainName}" target address!`, 'success');
+        
+        // Update results
+        elements.setAddressResults.innerHTML = `
+            <div class="result-box">
+                <div class="result-header">✅ Address Updated</div>
+                <div class="result-row">
+                    <span class="result-label">Domain:</span>
+                    <span class="result-value">${domainName}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">New Target:</span>
+                    <span class="result-value">${formatAddress(newTargetAddress)}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Transaction:</span>
+                    <span class="result-value">${receipt.hash.slice(0, 20)}...</span>
+                </div>
+            </div>
+        `;
+        
+        // Clear inputs
+        elements.setAddressDomain.value = '';
+        elements.newTargetAddress.value = '';
+        
+    } catch (error) {
+        console.error('Error setting address:', error);
+        let errorMessage = '❌ Address update failed';
+        if (error.message.includes('user rejected')) {
+            errorMessage = '🚫 Transaction cancelled by user';
+        } else if (error.message.includes('Not name owner')) {
+            errorMessage = '❌ You are not the owner of this domain';
+        }
+        showStatus('setAddressStatus', errorMessage, 'error');
+    } finally {
+        elements.setAddressBtn.innerHTML = '🎯 Update Address';
+        elements.setAddressBtn.disabled = true;
     }
 });
 
@@ -1506,47 +1864,8 @@ elements.lookupBtn.addEventListener('click', async () => {
         elements.lookupBtn.disabled = false;
     }
 });
-
-// Event Listeners
-elements.connectWallet.addEventListener('click', connectWallet);
-
-// Auto-connect if previously connected
-window.addEventListener('load', async () => {
-    if (typeof window.ethereum !== 'undefined') {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        if (accounts.length > 0) {
-            await connectWallet();
-        }
-    }
-    await loadStats();
-});
-
-// Handle account/network changes
-if (typeof window.ethereum !== 'undefined') {
-    window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length === 0) {
-            provider = null;
-            signer = null;
-            contract = null;
-            userAddress = null;
-            elements.connectWallet.textContent = 'Connect Wallet';
-            elements.connectWallet.disabled = false;
-            elements.connectWallet.style.background = '';
-            elements.registerBtn.disabled = true;
-            elements.transferBtn.disabled = true;
-            elements.walletInfo.style.display = 'none';
-        } else {
-            connectWallet();
-        }
-    });
-
-    window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-    });
-}
-
-// Auto-refresh stats every 30 seconds
-setInterval(loadStats, 30000);
-</script>
+        <!-- Ethers.js Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
+    </div>
 </body>
 </html>
