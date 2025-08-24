@@ -1,0 +1,53 @@
+{
+  "name": "fluent-dns",
+  "version": "1.0.0",
+  "description": "A modern, decentralized domain name service built on the Fluent Network testnet",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve . -l 3000",
+    "build": "echo 'No build step required for static site'",
+    "preview": "serve . -l 5000",
+    "lint": "echo 'Linting not configured'",
+    "test": "echo 'Tests not configured'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/fluent-dns.git"
+  },
+  "keywords": [
+    "blockchain",
+    "domains",
+    "web3",
+    "fluent",
+    "dns",
+    "decentralized",
+    "ethereum",
+    "dapp",
+    "testnet",
+    "smart-contracts"
+  ],
+  "author": {
+    "name": "0xbito",
+    "url": "https://x.com/kvng6ixx"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/fluent-dns/issues"
+  },
+  "homepage": "https://github.com/yourusername/fluent-dns#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

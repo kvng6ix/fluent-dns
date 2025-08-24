@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Fluent DNS - Premium Domain Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #8b5cf6;
+            --dark-purple: #6d28d9;
+            --light-purple: #a78bfa;
+            --accent-purple: #c084fc;
+            --black: #0f0f0f;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #2d2d2d;
+            --light-gray: #404040;
+            --text-white: #ffffff;
+            --text-gray: #a1a1aa;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 50%, var(--dark-purple) 100%);
+            min-height: 100vh;
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: var(--text-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .connect-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .connect-btn:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            opacity: 0.8;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: var(--text-gray);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 2.8em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-white), var(--light-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* Recent Domains */
+        .recent-domains {
+            max-height: 250px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-purple) var(--dark-gray);
+        }
+
+        .recent-domains::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .recent-domains::-webkit-scrollbar-track {
+            background: var(--dark-gray);
+            border-radius: 3px;
+        }
+
+        .recent-domains::-webkit-scrollbar-thumb {
+            background: var(--primary-purple);
+            border-radius: 3px;
+        }
+
+        .domain-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .domain-item:hover {
+            padding-left: 10px;
+            background: rgba(139, 92, 246, 0.05);
+            margin: 0 -10px;
+            border-radius: 8px;
+        }
+
+        .domain-name {
+            font-weight: 600;
+            color: var(--accent-purple);
+        }
+
+        .domain-price {
+            color: var(--success);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .main-section, .sidebar {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--text-white), var(--light-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Wallet Info */
+        .wallet-info {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .wallet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .wallet-label {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .wallet-value {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        /* Pricing Tiers */
+        .pricing-section {
+            margin-bottom: 30px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tier {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: var(--text-white);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tier:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .tier-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .tier-price {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tier-length {
+            opacity: 0.9;
+            font-size: 13px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--medium-gray);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: var(--text-white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .price-display {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--success);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-text {
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .price-value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        /* Action Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: var(--text-white);
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-purple);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Status Messages */
+        .status {
+            margin: 20px 0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        .status.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+
+        /* Sidebar Features */
+        .feature-card {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-purple);
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Domain Lookup Results */
+        .lookup-result {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .lookup-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .lookup-label {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .lookup-value {
+            color: var(--text-white);
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-top: 2px solid var(--primary-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-large {
+            width: 30px;
+            height: 30px;
+            border-width: 3px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 2em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-section, .sidebar {
+                padding: 25px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">🎨 Fluent DNS</div>
+            <div class="header-actions">
+                <button id="networkStatus" class="btn btn-secondary" style="font-size: 12px;">Fluent Testnet</button>
+                <button id="connectWallet" class="connect-btn">Connect Wallet</button>
+            </div>
+        </header>
+
+        <!-- Statistics Grid -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🏷️</span>
+                    <div class="stat-title">Total Domains Minted</div>
+                </div>
+                <div class="stat-value" id="totalDomains">
+                    <div class="loading loading-large"></div>
+                </div>
+                <div class="stat-change" id="domainsChange">Loading...</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">💰</span>
+                    <div class="stat-title">Total ETH Locked</div>
+                </div>
+                <div class="stat-value" id="totalEthLocked">
+                    <div class="loading loading-large"></div>
+                </div>
+                <div class="stat-change">Value locked in contract</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📈</span>
+                    <div class="stat-title">Recent Activity</div>
+                </div>
+                <div class="recent-domains" id="recentDomains">
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loading loading-large"></div>
+                        <div style="margin-top: 10px; color: var(--text-gray);">Loading live data...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Main Registration Section -->
+            <section class="main-section">
+                <h2 class="section-title">Register Your Domain</h2>
+
+                <!-- Wallet Connection Info -->
+                <div id="walletInfo" class="wallet-info" style="display: none;">
+                    <div class="wallet-row">
+                        <span class="wallet-label">Connected Wallet:</span>
+                        <span class="wallet-value" id="walletAddress"></span>
+                    </div>
+                    <div class="wallet-row">
+                        <span class="wallet-label">Balance:</span>
+                        <span class="wallet-value" id="walletBalance">0.0000 ETH</span>
+                    </div>
+                </div>
+
+                <!-- Pricing Display -->
+                <div class="pricing-section">
+                    <h3 style="margin-bottom: 15px; color: var(--text-white);">Dynamic Pricing</h3>
+                    <div class="pricing-grid">
+                        <div class="tier">
+                            <div class="tier-badge">Premium</div>
+                            <div class="tier-price">0.01 ETH</div>
+                            <div class="tier-length">1-5 characters</div>
+                        </div>
+                        <div class="tier">
+                            <div class="tier-badge">Standard</div>
+                            <div class="tier-price">0.005 ETH</div>
+                            <div class="tier-length">6-10 characters</div>
+                        </div>
+                        <div class="tier">
+                            <div class="tier-badge">Economy</div>
+                            <div class="tier-price">0.001 ETH</div>
+                            <div class="tier-length">11+ characters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="form-group">
+                    <label for="domainName" class="form-label">
+                        Domain Name <span style="color: var(--text-gray);">(3-50 characters: a-z, 0-9, '-' only)</span>
+                    </label>
+                    <input type="text" id="domainName" class="form-input" placeholder="Enter your desired domain name">
+                </div>
+
+                <div class="form-group">
+                    <label for="targetAddress" class="form-label">
+                        Target Address <span style="color: var(--text-gray);">(optional - defaults to your wallet)</span>
+                    </label>
+                    <input type="text" id="targetAddress" class="form-input" placeholder="0x... (leave empty to use your address)">
+                </div>
+
+                <!-- Price Display -->
+                <div class="price-display" id="priceDisplayContainer" style="display: none;">
+                    <div class="price-text">Registration Price:</div>
+                    <div class="price-value" id="priceDisplay"></div>
+                </div>
+
+                <!-- Status Messages -->
+                <div id="status"></div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button id="checkAvailabilityBtn" class="btn btn-secondary">🔍 Check Availability</button>
+                    <button id="registerBtn" class="btn" disabled>🚀 Register Domain</button>
+                </div>
+
+                <!-- Domain Lookup -->
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 15px; color: var(--text-white);">Domain Lookup</h3>
+                    <div class="form-group">
+                        <input type="text" id="lookupDomain" class="form-input" placeholder="Enter domain to lookup owner/target">
+                    </div>
+                    <button id="lookupBtn" class="btn btn-secondary">🔍 Lookup Domain</button>
+                    <div id="lookupResults"></div>
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3 class="section-title">About Fluent DNS</h3>
+
+                <div class="feature-card">
+                    <div class="feature-title">🔒 Decentralized Ownership</div>
+                    <div class="feature-text">
+                        Your domains are stored on the blockchain. No central authority can take them away.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-title">💎 Dynamic Pricing</div>
+                    <div class="feature-text">
+                        Fair pricing based on domain length. Shorter domains cost more, encouraging efficient use.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-title">🔄 Transferable</div>
+                    <div class="feature-text">
+                        Transfer ownership of your domains to other addresses at any time.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-title">⚡ Built on Fluent</div>
+                    <div class="feature-text">
+                        Powered by Fluent Network's fast and low-cost infrastructure.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-title">📊 Live Statistics</div>
+                    <div class="feature-text">
+                        Real-time data showing total domains registered and value locked.
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>
+                <a href="https://x.com/fluentxyz" target="_blank">Fluent X</a>
+            </div>
+            <div>
+                made by top gooner <a href="https://x.com/kvng6ixx" target="_blank">0xbito</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Ethers.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
+  <script>
+// Contract Configuration
+const CONTRACT_ADDRESS = "0xF273cd4154D56d50FF32b09A224Cdc2F269b3acA";
+const DEPLOYMENT_BLOCK = 3994017;
+
+// Enhanced ABI from your smart contract
+const CONTRACT_ABI = [
+    "function register(string calldata name, address target) external payable",
+    "function available(string calldata name) external view returns (bool)",
+    "function getPrice(string calldata name) external view returns (uint256)",
+    "function ownerOf(string calldata name) external view returns (address)",
+    "function resolve(string calldata name) external view returns (address)",
+    "function transferName(string calldata name, address newOwner) external",
+    "function setAddress(string calldata name, address target) external",
+    "function premiumPrice() external view returns (uint256)",
+    "function standardPrice() external view returns (uint256)",
+    "function economyPrice() external view returns (uint256)",
+    "function batchRegister(string[] calldata names, address[] calldata targets) external payable",
+    "event Registered(string name, address indexed owner, address target, uint256 price)",
+    "event AddressSet(string name, address indexed target)",
+    "event OwnershipTransferred(string name, address indexed oldOwner, address indexed newOwner)"
+];
+
+// Fluent Testnet Configuration
+const FLUENT_TESTNET = {
+    chainId: '0x5202', // 20994 in hex
+    chainName: 'Fluent Testnet',
+    nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+    rpcUrls: ['https://rpc.testnet.fluent.xyz/'],
+    blockExplorerUrls: ['https://testnet.fluentscan.xyz/']
+};
+
+// Global State
+let provider = null;
+let signer = null;
+let contract = null;
+let userAddress = null;
+
+// DOM Elements
+const elements = {
+    connectWallet: document.getElementById('connectWallet'),
+    domainName: document.getElementById('domainName'),
+    targetAddress: document.getElementById('targetAddress'),
+    priceDisplay: document.getElementById('priceDisplay'),
+    priceDisplayContainer: document.getElementById('priceDisplayContainer'),
+    registerBtn: document.getElementById('registerBtn'),
+    checkAvailabilityBtn: document.getElementById('checkAvailabilityBtn'),
+    lookupBtn: document.getElementById('lookupBtn'),
+    lookupDomain: document.getElementById('lookupDomain'),
+    lookupResults: document.getElementById('lookupResults'),
+    status: document.getElementById('status'),
+    walletInfo: document.getElementById('walletInfo'),
+    walletAddress: document.getElementById('walletAddress'),
+    walletBalance: document.getElementById('walletBalance'),
+    totalDomains: document.getElementById('totalDomains'),
+    totalEthLocked: document.getElementById('totalEthLocked'),
+    recentDomains: document.getElementById('recentDomains'),
+    domainsChange: document.getElementById('domainsChange')
+};
+
+// Utility Functions
+function showStatus(message, type = 'success', duration = 5000) {
+    elements.status.innerHTML = `<div class="status ${type}">${message}</div>`;
+    setTimeout(() => elements.status.innerHTML = '', duration);
+}
+
+function formatAddress(address) {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
+function calculatePrice(domainName) {
+    if (!domainName) return null;
+    const length = domainName.length;
+    if (length <= 5) return '0.01';
+    if (length <= 10) return '0.005';
+    return '0.001';
+}
+
+function isValidDomainName(name) {
+    if (!name || name.length < 3 || name.length > 50) return false;
+    return /^[a-z0-9-]+$/.test(name);
+}
+
+// Wallet Connection
+async function connectWallet() {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            showStatus('Please install MetaMask or another Web3 wallet', 'error');
+            return;
+        }
+
+        elements.connectWallet.innerHTML = '<span class="loading"></span> Connecting...';
+        elements.connectWallet.disabled = true;
+
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        provider = new ethers.BrowserProvider(window.ethereum);
+
+        const network = await provider.getNetwork();
+        if (network.chainId !== 20994n) {
+            await switchToFluentTestnet();
+        }
+
+        signer = await provider.getSigner();
+        userAddress = await signer.getAddress();
+        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+        // Update UI
+        elements.connectWallet.textContent = 'Connected';
+        elements.connectWallet.style.background = 'var(--success)';
+        elements.registerBtn.disabled = false;
+
+        // Show wallet info
+        elements.walletAddress.textContent = formatAddress(userAddress);
+        const balance = await provider.getBalance(userAddress);
+        elements.walletBalance.textContent = `${parseFloat(ethers.formatEther(balance)).toFixed(4)} ETH`;
+        elements.walletInfo.style.display = 'block';
+
+        showStatus('✅ Wallet connected successfully!', 'success');
+        
+    } catch (error) {
+        console.error('Error connecting wallet:', error);
+        showStatus('❌ Failed to connect wallet: ' + error.message, 'error');
+        elements.connectWallet.innerHTML = 'Connect Wallet';
+        elements.connectWallet.disabled = false;
+    }
+}
+
+// Switch to Fluent Testnet
+async function switchToFluentTestnet() {
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: FLUENT_TESTNET.chainId }],
+        });
+    } catch (switchError) {
+        if (switchError.code === 4902) {
+            await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [FLUENT_TESTNET],
+            });
+        } else {
+            throw switchError;
+        }
+    }
+}
+
+// Load Live Statistics
+async function loadStats() {
+    try {
+        const readProvider = new ethers.JsonRpcProvider('https://rpc.testnet.fluent.xyz/');
+        const readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
+        
+        const currentBlock = await readProvider.getBlockNumber();
+        console.log(`Searching events from block ${DEPLOYMENT_BLOCK} to ${currentBlock}`);
+
+        // Search in chunks to avoid RPC limits
+        const CHUNK_SIZE = 5000;
+        let allEvents = [];
+        
+        for (let fromBlock = DEPLOYMENT_BLOCK; fromBlock <= currentBlock; fromBlock += CHUNK_SIZE) {
+            const toBlock = Math.min(fromBlock + CHUNK_SIZE - 1, currentBlock);
+            
+            try {
+                const filter = readContract.filters.Registered();
+                const chunkEvents = await readContract.queryFilter(filter, fromBlock, toBlock);
+                allEvents = allEvents.concat(chunkEvents);
+            } catch (chunkError) {
+                console.warn(`Error fetching chunk ${fromBlock}-${toBlock}:`, chunkError);
+            }
+        }
+
+        console.log(`Total events found: ${allEvents.length}`);
+
+        // Update total domains
+        elements.totalDomains.textContent = allEvents.length.toString();
+        elements.domainsChange.textContent = `Since deployment`;
+
+        // Calculate total ETH locked
+        let totalEthLocked = 0n;
+        allEvents.forEach(event => {
+            if (event.args && event.args.price) {
+                totalEthLocked += event.args.price;
+            }
+        });
+        elements.totalEthLocked.textContent = parseFloat(ethers.formatEther(totalEthLocked)).toFixed(4);
+
+        // Show recent domains
+        const recentEvents = allEvents.slice(-10).reverse();
+        
+        if (recentEvents.length === 0) {
+            elements.recentDomains.innerHTML = '<div style="text-align: center; color: var(--text-gray); padding: 20px;">No domains registered yet</div>';
+        } else {
+            elements.recentDomains.innerHTML = recentEvents.map(event => `
+                <div class="domain-item">
+                    <span class="domain-name">${event.args.name}</span>
+                    <span class="domain-price">${ethers.formatEther(event.args.price)} ETH</span>
+                </div>
+            `).join('');
+        }
+        
+    } catch (error) {
+        console.error('Error loading stats:', error);
+        elements.totalDomains.textContent = 'Error';
+        elements.totalEthLocked.textContent = 'Error';
+        elements.recentDomains.innerHTML = '<div style="text-align: center; color: var(--error);">Unable to load data</div>';
+    }
+}
+
+// Domain Name Input Handler
+elements.domainName.addEventListener('input', (e) => {
+    const domainName = e.target.value.toLowerCase();
+    e.target.value = domainName; // Force lowercase
+    
+    if (domainName && isValidDomainName(domainName)) {
+        const price = calculatePrice(domainName);
+        elements.priceDisplay.textContent = `${price} ETH`;
+        elements.priceDisplayContainer.style.display = 'flex';
+    } else if (domainName) {
+        elements.priceDisplay.textContent = 'Invalid domain name';
+        elements.priceDisplayContainer.style.display = 'flex';
+    } else {
+        elements.priceDisplayContainer.style.display = 'none';
+    }
+});
+
+// Check Availability
+elements.checkAvailabilityBtn.addEventListener('click', async () => {
+    const domainName = elements.domainName.value.toLowerCase().trim();
+    
+    if (!domainName) {
+        showStatus('⚠️ Please enter a domain name', 'warning');
+        return;
+    }
+    
+    if (!isValidDomainName(domainName)) {
+        showStatus('❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
+        return;
+    }
+
+    if (!contract) {
+        showStatus('⚠️ Please connect your wallet first', 'warning');
+        return;
+    }
+
+    try {
+        elements.checkAvailabilityBtn.innerHTML = '<span class="loading"></span> Checking...';
+        elements.checkAvailabilityBtn.disabled = true;
+        
+        const available = await contract.available(domainName);
+        if (available) {
+            showStatus(`✅ "${domainName}" is available for registration!`, 'success');
+        } else {
+            showStatus(`❌ "${domainName}" is already taken`, 'error');
+        }
+    } catch (error) {
+        console.error('Error checking availability:', error);
+        showStatus('❌ Error checking availability: ' + error.message, 'error');
+    } finally {
+        elements.checkAvailabilityBtn.innerHTML = '🔍 Check Availability';
+        elements.checkAvailabilityBtn.disabled = false;
+    }
+});
+
+// Register Domain
+elements.registerBtn.addEventListener('click', async () => {
+    const domainName = elements.domainName.value.toLowerCase().trim();
+    const targetAddress = elements.targetAddress.value.trim();
+    
+    if (!domainName) {
+        showStatus('⚠️ Please enter a domain name', 'warning');
+        return;
+    }
+    
+    if (!isValidDomainName(domainName)) {
+        showStatus('❌ Invalid domain name. Use only a-z, 0-9, and hyphens. Length: 3-50 characters.', 'error');
+        return;
+    }
+
+    if (!contract) {
+        showStatus('⚠️ Please connect your wallet first', 'warning');
+        return;
+    }
+
+    try {
+        elements.registerBtn.innerHTML = '<span class="loading"></span> Registering...';
+        elements.registerBtn.disabled = true;
+        
+        // Check availability first
+        const available = await contract.available(domainName);
+        if (!available) {
+            showStatus('❌ Domain is already taken', 'error');
+            return;
+        }
+
+        // Get price
+        const price = calculatePrice(domainName);
+        const priceInWei = ethers.parseEther(price);
+        
+        // Validate target address if provided
+        const target = targetAddress && ethers.isAddress(targetAddress) 
+            ? targetAddress 
+            : ethers.ZeroAddress;
+
+        showStatus('📝 Please confirm the transaction in your wallet...', 'warning');
+
+        // Register domain
+        const tx = await contract.register(domainName, target, {
+            value: priceInWei
+        });
+        
+        showStatus('⏳ Transaction submitted. Waiting for confirmation...', 'warning');
+        
+        const receipt = await tx.wait();
+        
+        showStatus(`🎉 Successfully registered "${domainName}"! TX: ${receipt.hash.slice(0, 10)}...`, 'success');
+        
+        // Clear inputs
+        elements.domainName.value = '';
+        elements.targetAddress.value = '';
+        elements.priceDisplayContainer.style.display = 'none';
+        
+        // Refresh wallet balance
+        const balance = await provider.getBalance(userAddress);
+        elements.walletBalance.textContent = `${parseFloat(ethers.formatEther(balance)).toFixed(4)} ETH`;
+        
+        // Refresh stats
+        setTimeout(loadStats, 2000);
+        
+    } catch (error) {
+        console.error('Error registering domain:', error);
+        let errorMessage = '❌ Registration failed';
+        if (error.message.includes('insufficient funds')) {
+            errorMessage = '💸 Insufficient funds for registration';
+        } else if (error.message.includes('user rejected')) {
+            errorMessage = '🚫 Transaction cancelled by user';
+        } else if (error.message.includes('already taken')) {
+            errorMessage = '❌ Domain is already taken';
+        }
+        showStatus(errorMessage, 'error');
+    } finally {
+        elements.registerBtn.innerHTML = '🚀 Register Domain';
+        elements.registerBtn.disabled = false;
+    }
+});
+
+// Domain Lookup
+elements.lookupBtn.addEventListener('click', async () => {
+    const domainName = elements.lookupDomain.value.toLowerCase().trim();
+    
+    if (!domainName) {
+        showStatus('⚠️ Please enter a domain name to lookup', 'warning');
+        return;
+    }
+
+    try {
+        elements.lookupBtn.innerHTML = '<span class="loading"></span> Looking up...';
+        elements.lookupBtn.disabled = true;
+        
+        const readProvider = new ethers.JsonRpcProvider('https://rpc.testnet.fluent.xyz/');
+        const readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
+        
+        const owner = await readContract.ownerOf(domainName);
+        const target = await readContract.resolve(domainName);
+        const available = await readContract.available(domainName);
+        
+        if (available || owner === ethers.ZeroAddress) {
+            elements.lookupResults.innerHTML = `
+                <div class="lookup-result">
+                    <h4 style="color: var(--warning); margin-bottom: 15px;">Domain Not Registered</h4>
+                    <p style="color: var(--text-gray);">This domain is available for registration.</p>
+                </div>
+            `;
+        } else {
+            elements.lookupResults.innerHTML = `
+                <div class="lookup-result">
+                    <h4 style="color: var(--success); margin-bottom: 15px;">Domain Information</h4>
+                    <div class="lookup-row">
+                        <span class="lookup-label">Owner:</span>
+                        <span class="lookup-value">${formatAddress(owner)}</span>
+                    </div>
+                    <div class="lookup-row">
+                        <span class="lookup-label">Target:</span>
+                        <span class="lookup-value">${formatAddress(target)}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('Error looking up domain:', error);
+        elements.lookupResults.innerHTML = `
+            <div class="lookup-result">
+                <h4 style="color: var(--error); margin-bottom: 15px;">Lookup Failed</h4>
+                <p style="color: var(--text-gray);">Unable to lookup domain information.</p>
+            </div>
+        `;
+    } finally {
+        elements.lookupBtn.innerHTML = '🔍 Lookup Domain';
+        elements.lookupBtn.disabled = false;
+    }
+});
+
+// Event Listeners
+elements.connectWallet.addEventListener('click', connectWallet);
+
+// Auto-connect if previously connected
+window.addEventListener('load', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+            await connectWallet();
+        }
+    }
+    await loadStats();
+});
+
+// Handle account/network changes
+if (typeof window.ethereum !== 'undefined') {
+    window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+            provider = null;
+            signer = null;
+            contract = null;
+            userAddress = null;
+            elements.connectWallet.textContent = 'Connect Wallet';
+            elements.connectWallet.disabled = false;
+            elements.connectWallet.style.background = '';
+            elements.registerBtn.disabled = true;
+            elements.walletInfo.style.display = 'none';
+        } else {
+            connectWallet();
+        }
+    });
+
+    window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+    });
+}
+
+// Auto-refresh stats every 30 seconds
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>
