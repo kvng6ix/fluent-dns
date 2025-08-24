@@ -2,7 +2,6 @@
   "name": "fluent-dns",
   "version": "1.0.0",
   "description": "A modern, decentralized domain name service built on the Fluent Network testnet",
-  "main": "index.html",
   "scripts": {
     "start": "serve .",
     "dev": "serve . -l 3000",
@@ -27,10 +26,7 @@
     "testnet",
     "smart-contracts"
   ],
-  "author": {
-    "name": "0xbito",
-    "url": "https://x.com/kvng6ixx"
-  },
+  "author": "0xbito <https://x.com/kvng6ixx>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yourusername/fluent-dns/issues"
