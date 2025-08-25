@@ -98,24 +98,6 @@
             transform: none;
         }
 
-        .disconnect-btn {
-            background: linear-gradient(135deg, var(--error), #dc2626);
-            color: var(--text-white);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
-        }
-
-        .disconnect-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
-        }
-
         /* Stats Section */
         .stats-grid {
             display: grid;
@@ -657,7 +639,6 @@
             <div class="header-actions">
                 <button id="networkStatus" class="btn btn-secondary" style="font-size: 12px;">Fluent Testnet</button>
                 <button id="connectWallet" class="connect-btn">Connect Wallet</button>
-                <button id="disconnectWallet" class="disconnect-btn" style="display: none;">Disconnect</button>
             </div>
         </header>
 
@@ -860,12 +841,12 @@
 
     <!-- Ethers.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
-<script>
+    <script>
 // Contract Configuration
 const CONTRACT_ADDRESS = "0xF273cd4154D56d50FF32b09A224Cdc2F269b3acA";
 const DEPLOYMENT_BLOCK = 3994017;
 
-// Enhanced ABI from your smart contract - UPDATED with setAddress function
+// Enhanced ABI from your smart contract
 const CONTRACT_ABI = [
     "function register(string calldata name, address target) external payable",
     "function available(string calldata name) external view returns (bool)",
@@ -902,7 +883,6 @@ let userAddress = null;
 const elements = {
     // Wallet & Network
     connectWallet: document.getElementById('connectWallet'),
-    disconnectWallet: document.getElementById('disconnectWallet'),
     walletInfo: document.getElementById('walletInfo'),
     walletAddress: document.getElementById('walletAddress'),
     walletBalance: document.getElementById('walletBalance'),
@@ -980,7 +960,7 @@ function copyToClipboard(text) {
     });
 }
 
-// Wallet Connection Functions
+// Wallet Connection
 async function connectWallet() {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1004,8 +984,8 @@ async function connectWallet() {
         contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
         // Update UI
-        elements.connectWallet.style.display = 'none';
-        elements.disconnectWallet.style.display = 'block';
+        elements.connectWallet.textContent = 'Connected';
+        elements.connectWallet.style.background = 'var(--success)';
         elements.registerBtn.disabled = false;
 
         // Show wallet info
@@ -1022,25 +1002,6 @@ async function connectWallet() {
         elements.connectWallet.innerHTML = 'Connect Wallet';
         elements.connectWallet.disabled = false;
     }
-}
-
-async function disconnectWallet() {
-    // Reset global state
-    provider = null;
-    signer = null;
-    contract = null;
-    userAddress = null;
-
-    // Update UI
-    elements.connectWallet.style.display = 'block';
-    elements.connectWallet.innerHTML = 'Connect Wallet';
-    elements.connectWallet.disabled = false;
-    elements.disconnectWallet.style.display = 'none';
-    elements.walletInfo.style.display = 'none';
-    elements.registerBtn.disabled = true;
-    elements.transferBtn.disabled = true;
-
-    showStatus('registerStatus', '🔌 Wallet disconnected', 'warning', 3000);
 }
 
 // Switch to Fluent Testnet
@@ -1396,7 +1357,6 @@ elements.verifyTransferBtn.addEventListener('click', async () => {
     }
 });
 
-// UPDATED TRANSFER FUNCTION - Now transfers ownership AND updates target address
 elements.transferBtn.addEventListener('click', async () => {
     const domainName = elements.transferDomain.value.toLowerCase().trim();
     const newOwnerAddress = elements.newOwnerAddress.value.trim();
@@ -1420,21 +1380,15 @@ elements.transferBtn.addEventListener('click', async () => {
         elements.transferBtn.innerHTML = '<span class="loading"></span> Transferring...';
         elements.transferBtn.disabled = true;
         
-        // Step 1: Transfer ownership
-        showStatus('transferStatus', '📝 Step 1/2: Please confirm ownership transfer in your wallet...', 'warning');
+        showStatus('transferStatus', '📝 Please confirm the transfer in your wallet...', 'warning');
+
+        const tx = await contract.transferName(domainName, newOwnerAddress);
         
-        const transferTx = await contract.transferName(domainName, newOwnerAddress);
-        showStatus('transferStatus', '⏳ Step 1/2: Transfer ownership transaction submitted. Waiting for confirmation...', 'warning');
-        await transferTx.wait();
+        showStatus('transferStatus', '⏳ Transfer transaction submitted. Waiting for confirmation...', 'warning');
         
-        // Step 2: Update the target address to point to new owner
-        showStatus('transferStatus', '📝 Step 2/2: Please confirm address update transaction...', 'warning');
+        const receipt = await tx.wait();
         
-        const setAddressTx = await contract.setAddress(domainName, newOwnerAddress);
-        showStatus('transferStatus', '⏳ Step 2/2: Address update transaction submitted. Waiting for confirmation...', 'warning');
-        const setAddressReceipt = await setAddressTx.wait();
-        
-        showStatus('transferStatus', `🎉 Successfully transferred "${domainName}" to ${formatAddress(newOwnerAddress)} and updated target address!`, 'success');
+        showStatus('transferStatus', `🎉 Successfully transferred "${domainName}" to ${formatAddress(newOwnerAddress)}!`, 'success');
         
         // Update results
         elements.transferResults.innerHTML = `
@@ -1449,12 +1403,8 @@ elements.transferBtn.addEventListener('click', async () => {
                     <span class="result-value">${formatAddress(newOwnerAddress)}</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Now Points To:</span>
-                    <span class="result-value">${formatAddress(newOwnerAddress)}</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">Final Transaction:</span>
-                    <span class="result-value">${setAddressReceipt.hash.slice(0, 20)}...</span>
+                    <span class="result-label">Transaction:</span>
+                    <span class="result-value">${receipt.hash.slice(0, 20)}...</span>
                 </div>
             </div>
         `;
@@ -1470,8 +1420,6 @@ elements.transferBtn.addEventListener('click', async () => {
             errorMessage = '🚫 Transfer cancelled by user';
         } else if (error.message.includes('Not name owner')) {
             errorMessage = '❌ You are not the owner of this domain';
-        } else if (error.message.includes('insufficient funds')) {
-            errorMessage = '💸 Insufficient funds for gas fees';
         }
         showStatus('transferStatus', errorMessage, 'error');
     } finally {
@@ -1561,7 +1509,6 @@ elements.lookupBtn.addEventListener('click', async () => {
 
 // Event Listeners
 elements.connectWallet.addEventListener('click', connectWallet);
-elements.disconnectWallet.addEventListener('click', disconnectWallet);
 
 // Auto-connect if previously connected
 window.addEventListener('load', async () => {
@@ -1578,7 +1525,16 @@ window.addEventListener('load', async () => {
 if (typeof window.ethereum !== 'undefined') {
     window.ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length === 0) {
-            disconnectWallet();
+            provider = null;
+            signer = null;
+            contract = null;
+            userAddress = null;
+            elements.connectWallet.textContent = 'Connect Wallet';
+            elements.connectWallet.disabled = false;
+            elements.connectWallet.style.background = '';
+            elements.registerBtn.disabled = true;
+            elements.transferBtn.disabled = true;
+            elements.walletInfo.style.display = 'none';
         } else {
             connectWallet();
         }
@@ -1591,3 +1547,6 @@ if (typeof window.ethereum !== 'undefined') {
 
 // Auto-refresh stats every 30 seconds
 setInterval(loadStats, 30000);
+</script>
+</body>
+</html>
